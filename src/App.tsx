@@ -1,17 +1,13 @@
 import "./App.css";
-import { weatherData } from "./services/open-meteo-api";
+import { fetchWeatherData } from "./services/open-meteo-api";
+import type { WeatherData } from "./services/open-meteo-api";
 
+// Update from import/export to UseEffect(then render with useState) or function
 function App() {
-  const weatherCodeFromhourlyData = Array.from(
-    weatherData.hourly.weather_code ?? [],
-  );
-
   return (
     <>
       <section id="act"></section>
-      {weatherCodeFromhourlyData?.map((c, index) => (
-        <p key={index}>{c}</p>
-      ))}
+
       <section id="fcst"></section>
     </>
   );
