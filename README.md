@@ -2,7 +2,9 @@
 
 ## Weather Code
 
-0–3: Clear, partly cloudy, or overcast.
+0–1: Clear
+2: partly cloudy
+3: cloudy
 (20 - 29: Precipitation and fog.)
 45, 48: Fog or freezing fog.
 (50 - 59: Drizzle, 60 - 69: Rain, 70 - 79: Snow, 80 - 90: Showers, 91 - 99: Thunderstorms)
