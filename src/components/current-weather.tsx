@@ -1,4 +1,6 @@
 import type { WeatherData } from "../services/open-meteo-api";
+import { WEATHER_CODE } from "../../utilities/weatherCode";
+import type { WeatherKeys, WeatherRange } from "../../utilities/weatherCode";
 
 export default function CurrentWeatherCard({
   weather,
@@ -17,6 +19,21 @@ export default function CurrentWeatherCard({
   const temperature = temperature_2m ? Math.round(temperature_2m) : null;
   const wind =
     wind_direction_10m && wind_speed_10m ? Math.round(wind_speed_10m) : null;
+
+  const weatherCondition: WeatherKeys | string = () => {
+    if (!weather_code) return;
+
+    for (const [weatherKey, range] of Object.entries(WEATHER_CODE) as [
+      WeatherKeys,
+      WeatherRange,
+    ][]) {
+      if (range.min <= weather_code && range.max >= weather_code) {
+        return weatherKey;
+      } else {
+        return "No weather condition matched to the weather code";
+      }
+    }
+  };
 
   return (
     <>
