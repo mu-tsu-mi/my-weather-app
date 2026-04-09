@@ -27,9 +27,9 @@ export default function CurrentWeatherCard({
   const wind =
     wind_direction_10m && wind_speed_10m ? Math.round(wind_speed_10m) : null;
 
-  const weatherCondition = (): WeatherKeys | string => {
-    if (!weather_code) return "No weather code provided";
+  if (!weather_code) return null;
 
+  const weatherCondition = (): WeatherKeys | null => {
     for (const [weatherKey, range] of Object.entries(WEATHER_CODE) as [
       WeatherKeys,
       WeatherRange,
@@ -38,7 +38,8 @@ export default function CurrentWeatherCard({
         return weatherKey;
       }
     }
-    return "No weather condition matched to the weather code";
+    // No weather condition matched to the weather code
+    return null;
   };
 
   const weatherImages: Record<WeatherKeys, string> = {
@@ -51,9 +52,18 @@ export default function CurrentWeatherCard({
     thunderstorm: storm,
   };
 
+  // Check key(weatherCondition()) is not null, then render weatherImages[key]
+  const isWeatherKey = (k: string | null): k is WeatherKeys =>
+    k !== null && k in weatherImages;
   const key = weatherCondition();
-  const imageSrc = weatherImages[key] || "/src/assets/default.png";
-  const currentWeather = key.slice(0, 1).toUpperCase() + key.slice(1);
+
+  const imageSrc = isWeatherKey(key)
+    ? weatherImages[key]
+    : "/src/assets/default.png";
+  const currentWeather =
+    key && isWeatherKey(key) !== false
+      ? key.slice(0, 1).toUpperCase() + key.slice(1)
+      : "Unknown";
 
   return (
     <>
@@ -63,7 +73,7 @@ export default function CurrentWeatherCard({
         <p>{time?.toLocaleTimeString()}</p>
         <p>{weather_code}</p>
         <p>{currentWeather}</p>
-        <img src={imageSrc} alt={key} />
+        <img src={imageSrc} alt={currentWeather ?? "Unknown Weather"} />
         <p>{temperature} degrees</p>
         <p>Wind: {wind} km/h</p>
       </div>
