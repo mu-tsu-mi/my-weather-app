@@ -1,3 +1,4 @@
+import "./current-weather.css";
 import type { WeatherData } from "../services/open-meteo-api";
 import { WEATHER_IMAGES } from "../utilities/weatherImage";
 import { weatherCondition } from "../utilities/weatherCondition";
@@ -26,6 +27,7 @@ export default function CurrentWeatherCard({
   // Check key(weatherCondition()) is not null, then render weatherImages[key]
   const isWeatherKey = (k: string | null): k is WeatherKeys =>
     k !== null && k in WEATHER_IMAGES;
+
   const key = weatherCondition(weather_code);
 
   const imageSrc = isWeatherKey(key)
@@ -40,14 +42,17 @@ export default function CurrentWeatherCard({
   return (
     <>
       <div className="current-card-wrapper">
-        <p>My Location</p>
-        <p>{time?.toLocaleDateString()}</p>
-        <p>{time?.toLocaleTimeString()}</p>
-        <p>{weather_code}</p>
-        <p>{currentWeather}</p>
-        <img src={imageSrc} alt={currentWeather ?? "Unknown Weather"} />
-        <p>{temperature} degrees</p>
-        <p>Wind: {wind} km/h</p>
+        <div className="left-side-weather-data">
+          <h2>My Location</h2>
+          <div>{time?.toLocaleDateString()}</div>
+          <div>{time?.toLocaleTimeString()}</div>
+          <div>{currentWeather}</div>
+          <div>{temperature} degrees</div>
+          <div>Wind: {wind} km/h</div>
+        </div>
+        <div className="right-side-weather-image">
+          <img src={imageSrc} alt={currentWeather ?? "Unknown Weather"} />
+        </div>
       </div>
     </>
   );

@@ -31,10 +31,11 @@ function App() {
 
   return (
     <>
-      <section id="act"></section>
-      <CurrentWeatherCard weather={weather} />
-
-      <section id="fcst"></section>
+      <section className="weather-wrapper">
+        <CurrentWeatherCard weather={weather} />
+        {/* HourlyFcstCard */}
+        {/* Or 3-7 days FcstCard */}
+      </section>
     </>
   );
 }
