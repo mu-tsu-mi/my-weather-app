@@ -1,8 +1,9 @@
 import "./current-weather.css";
-import type { WeatherData } from "../services/open-meteo-api";
+import { WEATHER_CODE } from "../utilities/weatherCode";
 import { WEATHER_IMAGES } from "../utilities/weatherImage";
 import { weatherCondition } from "../utilities/weatherCondition";
 import type { WeatherKeys } from "../utilities/weatherCode";
+import type { WeatherData } from "../services/open-meteo-api";
 
 export default function CurrentWeatherCard({
   weather,
@@ -35,20 +36,22 @@ export default function CurrentWeatherCard({
     : "/src/assets/default.png";
 
   const currentWeather =
-    key && isWeatherKey(key) !== false
-      ? key.slice(0, 1).toUpperCase() + key.slice(1)
-      : "Unknown";
+    key && isWeatherKey(key) !== false ? WEATHER_CODE[key].title : "Unknown";
 
   return (
     <>
       <div className="current-card-wrapper">
         <div className="left-side-weather-data">
-          <h2>My Location</h2>
-          <div>{time?.toLocaleDateString()}</div>
-          <div>{time?.toLocaleTimeString()}</div>
-          <div>{currentWeather}</div>
-          <div>{temperature} degrees</div>
-          <div>Wind: {wind} km/h</div>
+          <div className="location-group">
+            <h2 id="location">My Location</h2>
+            <div>{time?.toLocaleDateString()}</div>
+            <div>{time?.toLocaleTimeString()}</div>
+          </div>
+          <div className="weather-group">
+            <div>{currentWeather}</div>
+            <div>{temperature} degrees</div>
+            <div>Wind: {wind} km/h</div>
+          </div>
         </div>
         <div className="right-side-weather-image">
           <img src={imageSrc} alt={currentWeather ?? "Unknown Weather"} />
