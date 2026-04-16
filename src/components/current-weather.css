@@ -38,11 +38,16 @@
   max-width: 100%;
   width: 100%;
   height: auto;
-  object-fit: scale-down;
+  border-radius: 2rem;
+  box-shadow:
+    0 0 0 12px var(--bg-2),
+    0 0 24px 8px rgba(156, 167, 153, 0.4);
+  /* object-fit: scale-down; */
 }
 #location {
   color: var(--location);
 }
+
 @media (max-width: 600px) {
   .current-card-wrapper {
     flex-direction: column;
@@ -54,6 +59,9 @@
     display: block;
   }
   @media (max-width: 900px) {
+    .left-side-weather-data {
+      align-items: flex-start;
+    }
     .weather-group {
       font-size: 1.5rem;
     }
