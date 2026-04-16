@@ -6,6 +6,7 @@ import drizzle from "../assets/drizzle.png";
 import rain from "../assets/rain.png";
 import showers from "../assets/showers.png";
 import storm from "../assets/storm.png";
+import defaultImg from "../assets/default.png";
 
 const WEATHER_IMAGES: Record<WeatherKeys, string> = {
   sunny: sunny,
@@ -17,4 +18,4 @@ const WEATHER_IMAGES: Record<WeatherKeys, string> = {
   thunderstorm: storm,
 };
 
-export { WEATHER_IMAGES };
+export { WEATHER_IMAGES, defaultImg };
