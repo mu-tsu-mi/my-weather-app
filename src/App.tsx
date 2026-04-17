@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { fetchWeatherData } from "./services/open-meteo-api";
 import type { WeatherData } from "./services/open-meteo-api";
-import CurrentWeatherCard from "./components/current-weather";
+import CurrentWeatherCard from "./components/current-weather/CurrentWeather";
+import FiveDayFcstCard from "./components/five-day-fcst/fiveDayFcst";
 
 function App() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -34,7 +35,7 @@ function App() {
       <section className="weather-wrapper">
         <CurrentWeatherCard weather={weather} />
         {/* HourlyFcstCard */}
-        {/* Or 3-7 days FcstCard */}
+        <FiveDayFcstCard />
       </section>
     </>
   );

@@ -1,9 +1,9 @@
-import "./current-weather.css";
-import { WEATHER_CODE } from "../utilities/weatherCode";
-import { WEATHER_IMAGES, defaultImg } from "../utilities/weatherImage";
-import { weatherCondition } from "../utilities/weatherCondition";
-import type { WeatherKeys } from "../utilities/weatherCode";
-import type { WeatherData } from "../services/open-meteo-api";
+import "./CurrentWeather.css";
+import { WEATHER_CODE } from "../../utilities/weatherCode";
+import { WEATHER_IMAGES, defaultImg } from "../../utilities/weatherImage";
+import { weatherCondition } from "../../utilities/weatherCondition";
+import type { WeatherKeys } from "../../utilities/weatherCode";
+import type { WeatherData } from "../../services/open-meteo-api";
 
 export default function CurrentWeatherCard({
   weather,
@@ -35,7 +35,7 @@ export default function CurrentWeatherCard({
 
   const currentWeather =
     key && isWeatherKey(key) !== false ? WEATHER_CODE[key].title : "Unknown";
-
+  console.log(weather);
   return (
     <>
       <div className="current-card-wrapper">
