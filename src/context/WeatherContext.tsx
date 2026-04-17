@@ -1,12 +1,18 @@
-import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router";
-import "./App.css";
-import { fetchWeatherData } from "./services/open-meteo-api";
-import type { WeatherData } from "./services/open-meteo-api";
-import CurrentWeatherCard from "./components/current-weather/CurrentWeather";
-import FiveDayFcstCard from "./components/five-day-fcst/fiveDayFcst";
+import { useState, useEffect, createContext, useContext } from "react";
+import type { ReactNode } from "react";
+import { fetchWeatherData } from "../services/open-meteo-api";
+import type { WeatherData } from "../services/open-meteo-api";
 
-function App() {
+type WeatherProviderProps = { children: ReactNode };
+type WeatherContextType = {
+  weather: WeatherData;
+  loading: boolean;
+  error: string | null;
+};
+
+const WeatherContext = createContext<WeatherContextType | null>(null);
+
+export default function WeatherProvider({ children }: WeatherProviderProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,13 +39,9 @@ function App() {
 
   return (
     <>
-      <section className="weather-wrapper">
-        <CurrentWeatherCard weather={weather} />
-        {/* HourlyFcstCard */}
-        <FiveDayFcstCard />
-      </section>
+      <WeatherContext value={{ weather, loading, error }}>
+        {children}
+      </WeatherContext>
     </>
   );
 }
-
-export default App;
