@@ -5,14 +5,14 @@ import type { WeatherData } from "../services/open-meteo-api";
 
 type WeatherProviderProps = { children: ReactNode };
 type WeatherContextType = {
-  weather: WeatherData;
+  weather: WeatherData | null;
   loading: boolean;
   error: string | null;
 };
 
 const WeatherContext = createContext<WeatherContextType | null>(null);
 
-export default function WeatherProvider({ children }: WeatherProviderProps) {
+export function WeatherProvider({ children }: WeatherProviderProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,10 +33,6 @@ export default function WeatherProvider({ children }: WeatherProviderProps) {
     fetchData();
   }, []);
 
-  if (loading) return <h2>Loading...</h2>;
-  if (error) return <h2>Error is occuring: {error}</h2>;
-  if (!weather) return <h2>Sorry, weather data is not available</h2>;
-
   return (
     <>
       <WeatherContext value={{ weather, loading, error }}>
@@ -44,4 +40,8 @@ export default function WeatherProvider({ children }: WeatherProviderProps) {
       </WeatherContext>
     </>
   );
+}
+
+export function useWeather() {
+  return useContext(WeatherContext);
 }

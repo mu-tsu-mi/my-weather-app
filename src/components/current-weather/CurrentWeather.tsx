@@ -2,14 +2,17 @@ import "./CurrentWeather.css";
 import { WEATHER_CODE } from "../../utilities/weatherCode";
 import { WEATHER_IMAGES, defaultImg } from "../../utilities/weatherImage";
 import { weatherCondition } from "../../utilities/weatherCondition";
+import { useWeather } from "../../context/WeatherContext";
 import type { WeatherKeys } from "../../utilities/weatherCode";
-import type { WeatherData } from "../../services/open-meteo-api";
 
-export default function CurrentWeatherCard({
-  weather,
-}: {
-  weather: WeatherData;
-}) {
+export default function CurrentWeatherCard() {
+  const weatherContext = useWeather();
+  if (!weatherContext) return null;
+  const { weather, loading, error } = weatherContext;
+  if (!weather) return null;
+  if (loading) return <h2>Loading...</h2>;
+  if (error) return <h2>Error is occuring: {error}</h2>;
+
   const { current } = weather;
   const {
     temperature_2m,
@@ -35,7 +38,7 @@ export default function CurrentWeatherCard({
 
   const currentWeather =
     key && isWeatherKey(key) !== false ? WEATHER_CODE[key].title : "Unknown";
-  console.log(weather);
+
   return (
     <>
       <div className="current-card-wrapper">
