@@ -4,6 +4,7 @@ import { WEATHER_IMAGES, defaultImg } from "../../utilities/weatherImage";
 import { weatherCondition } from "../../utilities/weatherCondition";
 import { useWeather } from "../../context/WeatherContext";
 import type { WeatherKeys } from "../../utilities/weatherCode";
+import { getOrdinalIndicators } from "../../utilities/dateTimeFormat";
 
 export default function CurrentWeatherCard() {
   const weatherContext = useWeather();
@@ -39,14 +40,35 @@ export default function CurrentWeatherCard() {
   const currentWeather =
     key && isWeatherKey(key) !== false ? WEATHER_CODE[key].title : "Unknown";
 
+  // Adjust format to display: date and time
+  const weekday = time
+    ? new Intl.DateTimeFormat(undefined, {
+        weekday: "short",
+      }).format(time)
+    : null;
+  const date = time ? time.getDate() : null;
+  const formattedDate = getOrdinalIndicators(Number(date));
+
+  const timeString = time
+    ? new Intl.DateTimeFormat(undefined, {
+        hour: "numeric",
+        hour12: true,
+      })
+        .format(time)
+        .replace(" ", "")
+        .toLowerCase()
+    : null;
+
   return (
     <>
       <div className="current-card-wrapper">
         <div className="left-side-weather-data">
           <div className="location-group">
             <h2 id="location">My Location</h2>
-            <div>{time?.toLocaleDateString()}</div>
-            <div>{time?.toLocaleTimeString()}</div>
+            <div>
+              {weekday}, {formattedDate}
+            </div>
+            <div>{timeString}</div>
           </div>
           <div className="weather-group">
             <div>{currentWeather}</div>

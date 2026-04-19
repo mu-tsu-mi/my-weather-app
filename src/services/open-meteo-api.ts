@@ -69,13 +69,15 @@ const fetchWeatherData = async (): Promise<WeatherData> => {
   const elevation = response.elevation();
   const timezone = response.timezone();
   const timezoneAbbreviation = response.timezoneAbbreviation();
-  const utcOffsetSeconds = response.utcOffsetSeconds();
+
+  // Removed: sample from meteo API
+  // const utcOffsetSeconds = response.utcOffsetSeconds();
+  // console.log(`\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`,)
 
   console.log(
     `\nCoordinates: ${latitude}°N ${longitude}°E`,
     `\nElevation: ${elevation}m asl`,
     `\nTimezone: ${timezone} ${timezoneAbbreviation}`,
-    `\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`,
   );
 
   const current = response.current()!;
@@ -85,7 +87,7 @@ const fetchWeatherData = async (): Promise<WeatherData> => {
   // Note: The order of weather variables in the URL query and the indices below need to match!
   const weatherData = {
     current: {
-      time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+      time: new Date(Number(current.time()) * 1000),
       weather_code: current.variables(0)!.value() ?? null,
       temperature_2m: current.variables(1)!.value() ?? null,
       wind_speed_10m: current.variables(2)!.value() ?? null,
@@ -99,10 +101,7 @@ const fetchWeatherData = async (): Promise<WeatherData> => {
             hourly.interval(),
         },
         (_, i) =>
-          new Date(
-            (Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) *
-              1000,
-          ),
+          new Date((Number(hourly.time()) + i * hourly.interval()) * 1000),
       ),
       temperature_2m: hourly.variables(0)?.valuesArray()
         ? Array.from(hourly.variables(0)!.valuesArray()!)
@@ -127,10 +126,7 @@ const fetchWeatherData = async (): Promise<WeatherData> => {
             (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval(),
         },
         (_, i) =>
-          new Date(
-            (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
-              1000,
-          ),
+          new Date((Number(daily.time()) + i * daily.interval()) * 1000),
       ),
       uv_index_max: daily.variables(0)?.valuesArray()
         ? Array.from(daily.variables(0)!.valuesArray()!)
