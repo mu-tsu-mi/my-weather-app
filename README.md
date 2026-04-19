@@ -17,6 +17,16 @@
 95: Thunderstorm (slight/moderate).
 96, 99: Thunderstorm with hail (slight/heavy)
 
+### Many thanks to Noun Project
+
+https://thenounproject.com/icon/sun-1108413/
+https://thenounproject.com/icon/sunny-8277109/
+https://thenounproject.com/icon/cloudy-8343643/
+https://thenounproject.com/icon/drizzle-4377915/?utm_source=nounproject&utm_campaign=icon_match&utm_content=match_drawer
+https://thenounproject.com/icon/drizzling-6514234/
+https://thenounproject.com/icon/rain-umbrella-8311570/?utm_source=nounproject&utm_campaign=icon_match&utm_content=match_drawer
+https://thenounproject.com/icon/storm-8177770/
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
