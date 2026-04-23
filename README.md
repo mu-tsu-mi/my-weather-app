@@ -26,6 +26,12 @@ https://thenounproject.com/icon/drizzle-4377915/?utm_source=nounproject&utm_camp
 https://thenounproject.com/icon/drizzling-6514234/
 https://thenounproject.com/icon/rain-umbrella-8311570/?utm_source=nounproject&utm_campaign=icon_match&utm_content=match_drawer
 https://thenounproject.com/icon/storm-8177770/
+https://thenounproject.com/icon/pig-8361061/
+https://thenounproject.com/icon/misty-719464/
+https://thenounproject.com/icon/hazy-sun-2525892/
+https://thenounproject.com/icon/fog-7418701/
+https://thenounproject.com/icon/snow-cloud-5936878/?utm_source=nounproject&utm_campaign=icon_match&utm_content=match_drawer
+https://thenounproject.com/icon/lightning-7760481/?utm_source=nounproject&utm_campaign=icon_match&utm_content=match_drawer
 
 # React + TypeScript + Vite
 

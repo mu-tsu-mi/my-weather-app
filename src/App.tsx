@@ -5,7 +5,7 @@ import { fetchWeatherData } from "./services/open-meteo-api";
 import type { WeatherData } from "./services/open-meteo-api";
 
 import CurrentWeatherCard from "./components/current-weather/CurrentWeather";
-import FiveDayFcstCard from "./components/five-day-fcst/fiveDayFcst";
+import FiveDayFcstCard from "./components/five-day-fcst/FiveDayFcst";
 
 function App() {
   // const [weather, setWeather] = useState<WeatherData | null>(null);
