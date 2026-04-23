@@ -40,7 +40,7 @@ export default function CurrentWeatherCard() {
   const currentWeather =
     key && isWeatherKey(key) !== false ? WEATHER_CODE[key].title : "Unknown";
 
-  // Adjust format to display: date and time
+  // Adjust format to display: day and time
   const weekday = time
     ? new Intl.DateTimeFormat(undefined, {
         weekday: "short",

@@ -1,7 +1,7 @@
 import { useWeather } from "../../context/WeatherContext";
 import { weatherCondition } from "../../utilities/weatherCondition";
 import { WEATHER_CODE } from "../../utilities/weatherCode";
-import { WEATHER_IMAGES } from "../../utilities/weatherImage";
+import { WEATHER_IMAGES, defaultImg } from "../../utilities/weatherImage";
 import type { WeatherKeys } from "../../utilities/weatherCode";
 
 export default function FiveDayFcstCard() {
@@ -28,15 +28,32 @@ export default function FiveDayFcstCard() {
     .map((w) => weatherCondition(w))
     .filter((key) => key !== null);
 
-  // images
+  const weatherImages: string[] = keys.map((key) =>
+    key ? WEATHER_IMAGES[key] : defaultImg,
+  );
 
   const weatherTitles = keys.map((key) =>
     key ? WEATHER_CODE[key].title : "unknown",
   );
 
+  // Adjust format to display: day and time
+  const weekdays = time
+    ? time.map((t) => {
+        return new Intl.DateTimeFormat(undefined, {
+          weekday: "short",
+        }).format(t);
+      })
+    : [];
+
   return (
     <div>
-      <div>{weatherTitles.map((t) => t)}</div>
+      {keys.map((key, index) => (
+        <div key={index}>
+          <div>{weekdays[index]}</div>
+          <img src={weatherImages[index]} alt={weatherTitles[index]} />
+          <div>{weatherTitles[index]}</div>
+        </div>
+      ))}
     </div>
   );
 }
