@@ -27,7 +27,7 @@ export default function CurrentWeatherCard() {
   const wind =
     wind_direction_10m && wind_speed_10m ? Math.round(wind_speed_10m) : null;
 
-  if (!weather_code) return null;
+  if (weather_code !== 0 && !weather_code) return null;
 
   // Check key(weatherCondition()) is not null, then render weatherImages[key]
   const isWeatherKey = (k: string | null): k is WeatherKeys =>

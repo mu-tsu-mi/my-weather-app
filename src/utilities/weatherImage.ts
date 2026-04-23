@@ -6,14 +6,18 @@ import drizzle from "../assets/drizzle.png";
 import rain from "../assets/rain.png";
 import showers from "../assets/showers.png";
 import storm from "../assets/storm.png";
+import neutralWeather from "../assets/neutralWeather.svg";
 import defaultImg from "../assets/default.png";
 
 const WEATHER_IMAGES: Record<WeatherKeys, string> = {
   sunny: sunny,
   partlyCloudy: partlyCloudy,
   cloudy: cloudy,
+  mistyOrHazy: neutralWeather,
+  foggy: neutralWeather,
   drizzle: drizzle,
   rain: rain,
+  snow: neutralWeather,
   showers: showers,
   thunderstorm: storm,
 };
