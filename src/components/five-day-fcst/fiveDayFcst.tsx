@@ -1,3 +1,4 @@
+import "./FiveDayFcst.css";
 import { useWeather } from "../../context/WeatherContext";
 import { weatherCondition } from "../../utilities/weatherCondition";
 import { WEATHER_CODE } from "../../utilities/weatherCode";
@@ -46,15 +47,11 @@ export default function FiveDayFcstCard() {
     : [];
 
   return (
-    <div>
+    <div className="five-day-card-wrapper">
       {keys.map((key, index) => (
-        <div key={index}>
+        <div key={index} className="five-day-contents">
           <div>{weekdays[index]}</div>
-          <img
-            src={weatherIcons[index]}
-            alt={weatherTitles[index]}
-            className="weather-icon"
-          />
+          <img src={weatherIcons[index]} alt={weatherTitles[index]} />
           <div>{weatherTitles[index]}</div>
         </div>
       ))}
