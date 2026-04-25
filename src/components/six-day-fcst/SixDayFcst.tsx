@@ -27,10 +27,14 @@ export default function SixDayFcstCard() {
   if (weather_code === null || weather_code.length === 0) return null;
   if (time === null) return null;
 
-  // Convert weather_code to weather condition
+  // Convert weather_code to weather condition and skip the current day
   const keys: WeatherKeys[] = weather_code
+    .slice(1)
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
+
+  // Skip the current day
+  const timeForSixDays = time.slice(1);
 
   // Prepare daily weather data
   const weatherDescription = keys.map((key, index) => {
@@ -45,7 +49,7 @@ export default function SixDayFcstCard() {
       title: weatherTitle,
       weekday: new Intl.DateTimeFormat(undefined, {
         weekday: "short",
-      }).format(time[index]),
+      }).format(timeForSixDays[index]),
     };
   });
 
