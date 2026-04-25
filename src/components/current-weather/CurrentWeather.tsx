@@ -73,8 +73,8 @@ export default function CurrentWeatherCard() {
           </div>
           <div className="weather-group">
             <div>{currentWeather}</div>
-            <div>{temperature} degrees</div>
-            <div>Wind: {wind} km/h</div>
+            <div>{temperature}°C</div>
+            <div>Wind: {wind}km/h</div>
           </div>
         </div>
         <div className="right-side-weather-image">
