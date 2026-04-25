@@ -1,11 +1,11 @@
-import "./FiveDayFcst.css";
+import "./SixDayFcst.css";
 import { useWeather } from "../../context/WeatherContext";
 import { weatherCondition } from "../../utilities/weatherCondition";
 import { WEATHER_CODE } from "../../utilities/weatherCode";
 import { WEATHER_ICONS, defaultIcon } from "../../utilities/weatherIcon";
 import type { WeatherKeys } from "../../utilities/weatherCode";
 
-export default function FiveDayFcstCard() {
+export default function SixDayFcstCard() {
   const weatherContext = useWeather();
   if (!weatherContext) return null;
   const { weather, loading, error } = weatherContext;
@@ -27,11 +27,11 @@ export default function FiveDayFcstCard() {
 
   const keys: WeatherKeys[] = weather_code
     .map((w) => weatherCondition(w))
-    .filter((key) => key !== null);
+    .filter((key): key is WeatherKeys => key !== null);
 
-  const weatherIcons: string[] = keys.map((key) =>
-    key ? WEATHER_ICONS[key] : defaultIcon,
-  );
+  const weatherIcons: string[] = keys.map((key) => {
+    return key ? WEATHER_ICONS[key] : defaultIcon;
+  });
 
   const weatherTitles = keys.map((key) =>
     key ? WEATHER_CODE[key].title : "unknown",
@@ -46,6 +46,7 @@ export default function FiveDayFcstCard() {
       })
     : [];
 
+  console.log(daily);
   return (
     <div className="five-day-card-wrapper">
       {keys.map((key, index) => (
