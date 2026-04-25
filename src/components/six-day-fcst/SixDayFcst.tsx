@@ -29,13 +29,14 @@ export default function SixDayFcstCard() {
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
-  const weatherIcons: string[] = keys.map((key) => {
-    return key ? WEATHER_ICONS[key] : defaultIcon;
-  });
+  const weatherTitlesIcons = keys.map((key) => {
+    const weatherIcon: WeatherKeys | string = key
+      ? WEATHER_ICONS[key]
+      : defaultIcon;
+    const weatherTitle: string = key ? WEATHER_CODE[key].title : "unknown";
 
-  const weatherTitles = keys.map((key) =>
-    key ? WEATHER_CODE[key].title : "unknown",
-  );
+    return { key: key, icon: weatherIcon, title: weatherTitle };
+  });
 
   // Adjust format to display: day and time
   const weekdays = time
@@ -46,14 +47,13 @@ export default function SixDayFcstCard() {
       })
     : [];
 
-  console.log(daily);
   return (
     <div className="five-day-card-wrapper">
-      {keys.map((key, index) => (
+      {weatherTitlesIcons.map((weatherData, index) => (
         <div key={index} className="five-day-contents">
           <div>{weekdays[index]}</div>
-          <img src={weatherIcons[index]} alt={weatherTitles[index]} />
-          <div>{weatherTitles[index]}</div>
+          <img src={weatherData.icon} alt={weatherData.title} />
+          <div>{weatherData.title}</div>
         </div>
       ))}
     </div>
