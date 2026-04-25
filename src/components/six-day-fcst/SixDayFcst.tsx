@@ -24,34 +24,33 @@ export default function SixDayFcstCard() {
   } = daily;
 
   if (weather_code === null || weather_code.length === 0) return null;
+  if (time === null) return null;
 
   const keys: WeatherKeys[] = weather_code
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
-  const weatherTitlesIcons = keys.map((key) => {
+  const weatherTitlesIcons = keys.map((key, index) => {
     const weatherIcon: WeatherKeys | string = key
       ? WEATHER_ICONS[key]
       : defaultIcon;
     const weatherTitle: string = key ? WEATHER_CODE[key].title : "unknown";
 
-    return { key: key, icon: weatherIcon, title: weatherTitle };
+    return {
+      key: key,
+      icon: weatherIcon,
+      title: weatherTitle,
+      weekday: new Intl.DateTimeFormat(undefined, {
+        weekday: "short",
+      }).format(time[index]),
+    };
   });
-
-  // Adjust format to display: day and time
-  const weekdays = time
-    ? time.map((t) => {
-        return new Intl.DateTimeFormat(undefined, {
-          weekday: "short",
-        }).format(t);
-      })
-    : [];
 
   return (
     <div className="five-day-card-wrapper">
       {weatherTitlesIcons.map((weatherData, index) => (
         <div key={index} className="five-day-contents">
-          <div>{weekdays[index]}</div>
+          <div>{weatherData.weekday}</div>
           <img src={weatherData.icon} alt={weatherData.title} />
           <div>{weatherData.title}</div>
         </div>
