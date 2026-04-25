@@ -23,13 +23,16 @@ export default function SixDayFcstCard() {
     wind_speed_10m_max,
   } = daily;
 
+  // Checking weather data from API
   if (weather_code === null || weather_code.length === 0) return null;
   if (time === null) return null;
 
+  // Convert weather_code to weather condition
   const keys: WeatherKeys[] = weather_code
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
+  // Prepare daily weather data
   const weatherDescription = keys.map((key, index) => {
     const weatherIcon: WeatherKeys | string = key
       ? WEATHER_ICONS[key]
@@ -48,8 +51,8 @@ export default function SixDayFcstCard() {
 
   return (
     <div className="five-day-card-wrapper">
-      {weatherDescription.map((weatherData, index) => (
-        <div key={index} className="five-day-contents">
+      {weatherDescription.map((weatherData) => (
+        <div key={weatherData.weekday} className="five-day-contents">
           <div>{weatherData.weekday}</div>
           <img src={weatherData.icon} alt={weatherData.title} />
           <div>{weatherData.title}</div>
