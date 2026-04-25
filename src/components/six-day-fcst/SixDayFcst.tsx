@@ -30,7 +30,7 @@ export default function SixDayFcstCard() {
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
-  const weatherTitlesIcons = keys.map((key, index) => {
+  const weatherDescription = keys.map((key, index) => {
     const weatherIcon: WeatherKeys | string = key
       ? WEATHER_ICONS[key]
       : defaultIcon;
@@ -48,7 +48,7 @@ export default function SixDayFcstCard() {
 
   return (
     <div className="five-day-card-wrapper">
-      {weatherTitlesIcons.map((weatherData, index) => (
+      {weatherDescription.map((weatherData, index) => (
         <div key={index} className="five-day-contents">
           <div>{weatherData.weekday}</div>
           <img src={weatherData.icon} alt={weatherData.title} />
