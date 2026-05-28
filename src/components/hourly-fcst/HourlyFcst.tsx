@@ -40,6 +40,7 @@ export default function HourlyFcstCard() {
 
   // Convert weather_code to weather condition and skip the current day
   const keys: WeatherKeys[] = weather_code
+    .filter((_, index) => index >= currentHourIndex && index <= block6Index)
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
