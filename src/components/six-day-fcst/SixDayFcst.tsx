@@ -25,11 +25,14 @@ export default function SixDayFcstCard() {
 
   // Checking weather data from API
   if (weather_code === null || weather_code.length === 0) return null;
-  if (time === null) return null;
-  if (temperature_2m_max === null) return null;
-  if (temperature_2m_min === null) return null;
-  if (wind_speed_10m_max === null) return null;
-  if (uv_index_max === null) return null;
+  if (time === null || time.length === 0) return null;
+  if (temperature_2m_max === null || temperature_2m_max.length === 0)
+    return null;
+  if (temperature_2m_min === null || temperature_2m_min.length === 0)
+    return null;
+  if (wind_speed_10m_max === null || wind_speed_10m_max.length === 0)
+    return null;
+  if (uv_index_max === null || uv_index_max.length === 0) return null;
 
   // Convert weather_code to weather condition and skip the current day
   const keys: WeatherKeys[] = weather_code
@@ -78,7 +81,7 @@ export default function SixDayFcstCard() {
           <div>{weatherData.title}</div>
           <div>{weatherData.maxTemp}°C Max</div>
           <div>{weatherData.minTemp}°C Min</div>
-          <div>{weatherData.wind}km/h</div>
+          <div>Wind: {weatherData.wind}km/h</div>
           <div>UV: {weatherData.uvIndex}</div>
         </div>
       ))}

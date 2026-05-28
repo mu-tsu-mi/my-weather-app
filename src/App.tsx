@@ -6,6 +6,7 @@ import type { WeatherData } from "./services/open-meteo-api";
 
 import CurrentWeatherCard from "./components/current-weather/CurrentWeather";
 import SixDayFcstCard from "./components/six-day-fcst/SixDayFcst";
+import HourlyFcstCard from "./components/hourly-fcst/HourlyFcst";
 
 function App() {
   // const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -36,7 +37,7 @@ function App() {
     <>
       <section className="weather-wrapper">
         <CurrentWeatherCard />
-        {/* HourlyFcstCard */}
+        <HourlyFcstCard />
         <SixDayFcstCard />
       </section>
     </>
