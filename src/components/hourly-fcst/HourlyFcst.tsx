@@ -1,6 +1,7 @@
 import { useWeather } from "../../context/WeatherContext";
 import { weatherCondition } from "../../utilities/weatherCondition";
 import type { WeatherKeys } from "../../utilities/weatherCode";
+import { WEATHER_ICONS, defaultIcon } from "../../utilities/weatherIcon";
 
 export default function HourlyFcstCard() {
   const weatherContext = useWeather();
@@ -38,11 +39,46 @@ export default function HourlyFcstCard() {
   const block5Index = currentHourIndex + 19;
   const block6Index = currentHourIndex + 23;
 
-  // Convert weather_code to weather condition and skip the current day
+  // Convert weather_code to weather condition and filter the next 24 hours only
   const keys: WeatherKeys[] = weather_code
     .filter((_, index) => index >= currentHourIndex && index <= block6Index)
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
-  return <>Hourly Fcst</>;
+  // list only data for the next 24 hours
+  const temperature24hrs = temperature_2m.filter(
+    (_, index) => index >= currentHourIndex && index <= block6Index,
+  );
+  const precipitation24hrs = precipitation.filter(
+    (_, index) => index >= currentHourIndex && index <= block6Index,
+  );
+  const wind24hrs = wind_speed_10m.filter(
+    (_, index) => index >= currentHourIndex && index <= block6Index,
+  );
+  const time24hrs: Date[] = time.filter(
+    (_, index) => index >= currentHourIndex && index <= block6Index,
+  );
+
+  // prepare hourly weather data
+  const weatherDescription = keys.map((key, index) => {
+    const weatherIcon: WeatherKeys | string = key
+      ? WEATHER_ICONS[key]
+      : defaultIcon;
+    // check if filtering the correct data
+    const temperature = Math.round(temperature24hrs[index]);
+    const rainfallInMm = Math.floor(precipitation24hrs[index] * 100) / 100;
+    const wind = Math.round(wind24hrs[index]);
+
+    return {
+      timeBlock: new Intl.DateTimeFormat(undefined, {
+        timeStyle: "short",
+      }).format(time[index]),
+      weatherIcon: weatherIcon,
+      temperature: temperature,
+      precipitation: rainfallInMm,
+      windSpeed: wind,
+    };
+  });
+
+  return <div className="hourly-card-wrapper"></div>;
 }

@@ -73,9 +73,9 @@ export default function SixDayFcstCard() {
   });
 
   return (
-    <div className="five-day-card-wrapper">
+    <div className="six-day-card-wrapper">
       {weatherDescription.map((weatherData) => (
-        <div key={weatherData.weekday} className="five-day-contents">
+        <div key={weatherData.weekday} className="six-day-contents">
           <div>{weatherData.weekday}</div>
           <img src={weatherData.icon} alt={weatherData.title} />
           <div>{weatherData.title}</div>

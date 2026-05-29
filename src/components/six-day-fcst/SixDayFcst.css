@@ -1,8 +1,8 @@
-.five-day-card-wrapper {
+.six-day-card-wrapper {
   display: flex;
   gap: 1.5rem;
 }
-.five-day-contents {
+.six-day-contents {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
