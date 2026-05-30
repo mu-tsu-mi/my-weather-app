@@ -4,11 +4,11 @@
   justify-content: center;
   background: var(--bg-2);
   color: var(--text);
-  margin: 0 auto;
+  margin: 0 4rem;
   gap: 2rem;
 }
 .left-side-weather-data {
-  flex: 0 1 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,19 +30,18 @@
   gap: 1rem;
 }
 .right-side-weather-image {
-  /* flex-grow:0, flex-shrink(if necessary): 1, flex-basis(initial main size of a flex item) */
-  flex: 0 1 auto;
-  margin: 0 auto;
+  flex: 2;
 }
 .right-side-weather-image img {
-  max-width: 100%;
+  max-width: 100vw;
+  max-height: 60vh;
+  object-fit: contain;
   width: 100%;
   height: auto;
   border-radius: 2rem;
   box-shadow:
     0 0 0 12px var(--bg-2),
     0 0 24px 8px rgba(156, 167, 153, 0.4);
-  /* object-fit: scale-down; */
 }
 #location {
   color: var(--location);
