@@ -30,41 +30,54 @@ export default function HourlyFcstCard() {
     return null;
   if (wind_speed_10m === null || wind_speed_10m.length === 0) return null;
 
-  // Indice for the next 24 hours: get current time, round-down & add 24hr 4hrs window * 6
-  const currentHourIndex = new Date().getHours();
-  const block1Index = currentHourIndex + 3;
-  const block2Index = currentHourIndex + 7;
-  const block3Index = currentHourIndex + 11;
-  const block4Index = currentHourIndex + 15;
-  const block5Index = currentHourIndex + 19;
-  const block6Index = currentHourIndex + 23;
+  // Indice for the next 24 hours: 4hrs window * 6 blocks
+  const currentHourIndex = new Date().getHours() - 1;
+  // Set hours for a block
+  const blockHours = 4;
+  // Indice
+  const block1Index = currentHourIndex + blockHours;
+  const block2Index = currentHourIndex + blockHours * 2;
+  const block3Index = currentHourIndex + blockHours * 3;
+  const block4Index = currentHourIndex + blockHours * 4;
+  const block5Index = currentHourIndex + blockHours * 5;
+  const block6Index = currentHourIndex + blockHours * 6;
+  const timeBlocks = [
+    block1Index,
+    block2Index,
+    block3Index,
+    block4Index,
+    block5Index,
+    block6Index,
+  ];
 
   // Convert weather_code to weather condition and filter the next 24 hours only
   const keys: WeatherKeys[] = weather_code
-    .filter((_, index) => index >= currentHourIndex && index <= block6Index)
+    .filter((_, index) => timeBlocks.includes(index))
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
-  // list only data for the next 24 hours
-  const temperature24hrs = temperature_2m.filter(
-    (_, index) => index >= currentHourIndex && index <= block6Index,
-  );
-  const precipitation24hrs = precipitation.filter(
-    (_, index) => index >= currentHourIndex && index <= block6Index,
-  );
-  const wind24hrs = wind_speed_10m.filter(
-    (_, index) => index >= currentHourIndex && index <= block6Index,
-  );
-  const time24hrs: Date[] = time.filter(
-    (_, index) => index >= currentHourIndex && index <= block6Index,
+  // List only data for the next 24 hours with 6 time blocks, Use the fourth hour of each block
+  const temperature24hrs = temperature_2m.filter((_, index) =>
+    timeBlocks.includes(index),
   );
 
-  // prepare hourly weather data
+  const precipitation24hrs = precipitation.filter((_, index) =>
+    timeBlocks.includes(index),
+  );
+
+  const wind24hrs = wind_speed_10m.filter((_, index) =>
+    timeBlocks.includes(index),
+  );
+
+  const time24hrs: Date[] = time.filter((_, index) =>
+    timeBlocks.includes(index),
+  );
+
+  // Prepare hourly weather data
   const weatherDescription = keys.map((key, index) => {
     const weatherIcon: WeatherKeys | string = key
       ? WEATHER_ICONS[key]
       : defaultIcon;
-    // check if filtering the correct data
     const temperature = Math.round(temperature24hrs[index]);
     const rainfallInMm = Math.floor(precipitation24hrs[index] * 100) / 100;
     const wind = Math.round(wind24hrs[index]);
@@ -72,7 +85,7 @@ export default function HourlyFcstCard() {
     return {
       timeBlock: new Intl.DateTimeFormat(undefined, {
         timeStyle: "short",
-      }).format(time[index]),
+      }).format(time24hrs[index]),
       weatherIcon: weatherIcon,
       temperature: temperature,
       precipitation: rainfallInMm,
@@ -80,5 +93,13 @@ export default function HourlyFcstCard() {
     };
   });
 
-  return <div className="hourly-card-wrapper"></div>;
+  return (
+    <div className="hourly-card-wrapper">
+      {weatherDescription.map((w) => (
+        <div key={w.timeBlock} className="twentyfour-hour-contents">
+          <div>~{w.timeBlock}</div>
+        </div>
+      ))}
+    </div>
+  );
 }
