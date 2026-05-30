@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Link } from "react-router";
 import "./App.css";
 import { fetchWeatherData } from "./services/open-meteo-api";
 import type { WeatherData } from "./services/open-meteo-api";
@@ -37,8 +37,14 @@ function App() {
     <>
       <section className="weather-wrapper">
         <CurrentWeatherCard />
-        <HourlyFcstCard />
-        <SixDayFcstCard />
+        <Routes>
+          <Route index element={<HourlyFcstCard />} />
+          <Route path="/six-day-forecast" element={<SixDayFcstCard />} />
+        </Routes>
+        <nav>
+          <Link to="/">Hourly Forecast</Link>
+          <Link to="/six-day-forecast">Daily Forecast</Link>
+        </nav>
       </section>
     </>
   );
