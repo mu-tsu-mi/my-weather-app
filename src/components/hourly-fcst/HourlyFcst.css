@@ -1,11 +1,14 @@
-.six-day-card-wrapper {
+.hourly-card-wrapper {
   display: flex;
   gap: 1.5rem;
 }
-.six-day-contents {
+.twentyfour-hour-contents {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
   justify-content: space-between;
+}
+.no-wrap {
+  white-space: nowrap;
 }

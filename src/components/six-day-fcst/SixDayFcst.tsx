@@ -52,7 +52,7 @@ export default function SixDayFcstCard() {
     const weatherIcon: WeatherKeys | string = key
       ? WEATHER_ICONS[key]
       : defaultIcon;
-    const weatherTitle: string = key ? WEATHER_CODE[key].title : "unknown";
+    const weatherTitle: string = key ? WEATHER_CODE[key].title : "Unknown";
     const maxTemp = Math.round(maxTempForSixDays[index]);
     const minTemp = Math.round(minTempForSixDays[index]);
     const wind = Math.round(windForSixDays[index]);

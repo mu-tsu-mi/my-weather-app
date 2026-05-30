@@ -1,5 +1,7 @@
+import "./HourlyFcst.css";
 import { useWeather } from "../../context/WeatherContext";
 import { weatherCondition } from "../../utilities/weatherCondition";
+import { WEATHER_CODE } from "../../utilities/weatherCode";
 import type { WeatherKeys } from "../../utilities/weatherCode";
 import { WEATHER_ICONS, defaultIcon } from "../../utilities/weatherIcon";
 
@@ -34,7 +36,7 @@ export default function HourlyFcstCard() {
   const currentHourIndex = new Date().getHours() - 1;
   // Set hours for a block
   const blockHours = 4;
-  // Indice
+  // Indice using the fourth hour's data of each time-block
   const block1Index = currentHourIndex + blockHours;
   const block2Index = currentHourIndex + blockHours * 2;
   const block3Index = currentHourIndex + blockHours * 3;
@@ -50,13 +52,13 @@ export default function HourlyFcstCard() {
     block6Index,
   ];
 
-  // Convert weather_code to weather condition and filter the next 24 hours only
+  // Filter the next 24 hours only, then convert weather_code to weather condition
   const keys: WeatherKeys[] = weather_code
     .filter((_, index) => timeBlocks.includes(index))
     .map((w) => weatherCondition(w))
     .filter((key): key is WeatherKeys => key !== null);
 
-  // List only data for the next 24 hours with 6 time blocks, Use the fourth hour of each block
+  // List only data for the next 24 hours with 6 time-blocks
   const temperature24hrs = temperature_2m.filter((_, index) =>
     timeBlocks.includes(index),
   );
@@ -78,15 +80,18 @@ export default function HourlyFcstCard() {
     const weatherIcon: WeatherKeys | string = key
       ? WEATHER_ICONS[key]
       : defaultIcon;
+    const weatherTitle = key ? WEATHER_CODE[key].title : "Unknown";
     const temperature = Math.round(temperature24hrs[index]);
     const rainfallInMm = Math.floor(precipitation24hrs[index] * 100) / 100;
     const wind = Math.round(wind24hrs[index]);
 
     return {
       timeBlock: new Intl.DateTimeFormat(undefined, {
-        timeStyle: "short",
+        hour: "numeric",
+        hour12: true,
       }).format(time24hrs[index]),
       weatherIcon: weatherIcon,
+      weatherTitle: weatherTitle,
       temperature: temperature,
       precipitation: rainfallInMm,
       windSpeed: wind,
@@ -97,7 +102,12 @@ export default function HourlyFcstCard() {
     <div className="hourly-card-wrapper">
       {weatherDescription.map((w) => (
         <div key={w.timeBlock} className="twentyfour-hour-contents">
-          <div>~{w.timeBlock}</div>
+          <div className="no-wrap">~ {w.timeBlock}</div>
+          <img src={w.weatherIcon} alt={w.weatherTitle} />
+          <div>{w.weatherTitle}</div>
+          <div>{w.temperature}°C</div>
+          <div>Wind: {w.windSpeed}km/h</div>
+          <div>Rain: {w.precipitation}mm</div>
         </div>
       ))}
     </div>
