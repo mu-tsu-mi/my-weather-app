@@ -74,11 +74,11 @@ const fetchWeatherData = async (): Promise<WeatherData> => {
   // const utcOffsetSeconds = response.utcOffsetSeconds();
   // console.log(`\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`,)
 
-  console.log(
-    `\nCoordinates: ${latitude}°N ${longitude}°E`,
-    `\nElevation: ${elevation}m asl`,
-    `\nTimezone: ${timezone} ${timezoneAbbreviation}`,
-  );
+  // console.log(
+  //   `\nCoordinates: ${latitude}°N ${longitude}°E`,
+  //   `\nElevation: ${elevation}m asl`,
+  //   `\nTimezone: ${timezone} ${timezoneAbbreviation}`,
+  // );
 
   const current = response.current()!;
   const hourly = response.hourly()!;

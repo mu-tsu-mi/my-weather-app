@@ -9,3 +9,22 @@
   align-items: center;
   justify-content: space-between;
 }
+.day-of-the-week {
+  color: var(--location);
+  font-size: 1.2rem;
+}
+@media (max-width: 600px) {
+  .six-day-card-wrapper {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .six-day-contents {
+    /* for horizontal scroll */
+    flex: 0 0 auto;
+  }
+}
+@media (max-height: 750px) {
+  .six-day-card-wrapper {
+    padding-bottom: 4rem;
+  }
+}

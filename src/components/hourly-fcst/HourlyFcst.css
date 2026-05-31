@@ -12,3 +12,21 @@
 .no-wrap {
   white-space: nowrap;
 }
+.time-block {
+  color: var(--location);
+}
+@media (max-width: 600px) {
+  .hourly-card-wrapper {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .twentyfour-hour-contents {
+    /* for horizontal scroll */
+    flex: 0 0 auto;
+  }
+}
+@media (max-height: 750px) {
+  .hourly-card-wrapper {
+    padding-bottom: 4rem;
+  }
+}

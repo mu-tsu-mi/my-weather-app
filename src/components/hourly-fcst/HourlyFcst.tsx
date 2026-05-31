@@ -102,7 +102,7 @@ export default function HourlyFcstCard() {
     <div className="hourly-card-wrapper">
       {weatherDescription.map((w) => (
         <div key={w.timeBlock} className="twentyfour-hour-contents">
-          <div className="no-wrap">~ {w.timeBlock}</div>
+          <div className="no-wrap time-block">~ {w.timeBlock}</div>
           <img src={w.weatherIcon} alt={w.weatherTitle} />
           <div>{w.weatherTitle}</div>
           <div>{w.temperature}°C</div>

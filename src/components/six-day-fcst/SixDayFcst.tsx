@@ -76,7 +76,7 @@ export default function SixDayFcstCard() {
     <div className="six-day-card-wrapper">
       {weatherDescription.map((weatherData) => (
         <div key={weatherData.weekday} className="six-day-contents">
-          <div>{weatherData.weekday}</div>
+          <div className="day-of-the-week">{weatherData.weekday}</div>
           <img src={weatherData.icon} alt={weatherData.title} />
           <div>{weatherData.title}</div>
           <div>{weatherData.maxTemp}°C Max</div>
