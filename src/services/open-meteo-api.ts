@@ -63,12 +63,12 @@ const fetchWeatherData = async (): Promise<WeatherData> => {
   // Process first location. Add a for-loop for multiple locations or weather models
   const response = responses[0];
 
-  // Attributes for timezone and location
-  const latitude = response.latitude();
-  const longitude = response.longitude();
-  const elevation = response.elevation();
-  const timezone = response.timezone();
-  const timezoneAbbreviation = response.timezoneAbbreviation();
+  // Attributes for timezone and location: Not used in the app
+  // const latitude = response.latitude();
+  // const longitude = response.longitude();
+  // const elevation = response.elevation();
+  // const timezone = response.timezone();
+  // const timezoneAbbreviation = response.timezoneAbbreviation();
 
   // Removed: sample from meteo API
   // const utcOffsetSeconds = response.utcOffsetSeconds();
