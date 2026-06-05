@@ -1,0 +1,8 @@
+staticSites:
+  - name: my-weather-app
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
